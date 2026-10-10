@@ -5,10 +5,10 @@
   color-scheme: light dark;
 
   --paper: #e8f5f8;      /* PAGE BACKGROUND: change this to change the page color */
-  --ink: #1c2621;        /* main text */
-  --ink-soft: #55625b;   /* secondary text */
-  --rule: #c9d1c9;       /* thin lines */
-  --carmine: #9c1f38;    /* links */
+  --ink: #000000;        /* main text */
+  --ink-soft: #181818;   /* secondary text */
+  --rule: #181818;       /* thin lines */
+  --carmine: #191970;    /* links */
   --todo: #f6e7a1;       /* highlight for unfinished placeholders */
 
   --serif: "Alegreya", Georgia, "Times New Roman", serif;
