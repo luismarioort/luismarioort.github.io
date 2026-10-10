@@ -1,0 +1,617 @@
+/* ------------------------------------------------------------------
+   Colors and sizes. Change a value here and it changes everywhere.
+   ------------------------------------------------------------------ */
+:root {
+  color-scheme: light dark;
+
+  --paper: #f1f3ee;      /* PAGE BACKGROUND: change this to change the page color */
+  --ink: #1c2621;        /* main text */
+  --ink-soft: #55625b;   /* secondary text */
+  --rule: #c9d1c9;       /* thin lines */
+  --carmine: #9c1f38;    /* links */
+  --todo: #f6e7a1;       /* highlight for unfinished placeholders */
+
+  --serif: "Alegreya", Georgia, "Times New Roman", serif;
+  --sans: "Alegreya Sans", "Helvetica Neue", Arial, sans-serif;
+
+  --margin-col: 10rem;   /* width of the column holding section names */
+  --measure: 40rem;      /* width of the text column */
+  --gap: 3rem;
+}
+
+/* Dark mode: used when the visitor's phone or computer is set to dark. */
+@media (prefers-color-scheme: dark) {
+  :root {
+    --paper: #151c19;    /* PAGE BACKGROUND in dark mode */
+    --ink: #e3e8e2;
+    --ink-soft: #9daaa2;
+    --rule: #2f3a35;
+    --carmine: #ec8697;
+    --todo: #4d4214;
+  }
+}
+
+/* ------------------------------------------------------------------
+   Base
+   ------------------------------------------------------------------ */
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+html {
+  scroll-behavior: smooth;
+  -webkit-text-size-adjust: 100%;
+}
+
+body {
+  margin: 0;
+  background: var(--paper);
+  color: var(--ink);
+  font-family: var(--serif);
+  font-size: 1.25rem;
+  line-height: 1.55;
+  font-variant-numeric: oldstyle-nums proportional-nums;
+  text-rendering: optimizeLegibility;
+}
+
+p,
+ul,
+dl {
+  margin: 0;
+}
+
+a {
+  color: var(--carmine);
+  text-decoration: underline;
+  text-decoration-thickness: 1px;
+  text-underline-offset: 0.18em;
+  text-decoration-color: color-mix(in srgb, var(--carmine) 35%, transparent);
+}
+
+a:hover {
+  text-decoration-color: currentColor;
+}
+
+a:focus-visible,
+button:focus-visible,
+summary:focus-visible {
+  outline: 2px solid var(--carmine);
+  outline-offset: 3px;
+  border-radius: 2px;
+}
+
+.skip-link {
+  position: absolute;
+  left: -999px;
+  top: 1rem;
+  padding: 0.5rem 1rem;
+  background: var(--ink);
+  color: var(--paper);
+  font-family: var(--sans);
+  z-index: 10;
+}
+
+.skip-link:focus {
+  left: 1rem;
+}
+
+/* Language switch: data-lang="en" shows only in English, data-lang="es"
+   only in Spanish. Anything without data-lang shows in both. */
+html[data-ui="en"] [data-lang="es"],
+html[data-ui="es"] [data-lang="en"] {
+  display: none !important;
+}
+
+/* Text for screen readers only */
+.sr-only {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  white-space: nowrap;
+  border: 0;
+}
+
+/* Placeholder highlight. Remove class="todo" once you fill something in. */
+.todo {
+  background: var(--todo);
+  box-decoration-break: clone;
+  -webkit-box-decoration-break: clone;
+  padding: 0 0.15em;
+}
+
+/* ------------------------------------------------------------------
+   Page layout: section names hang in a left column, text runs right
+   ------------------------------------------------------------------ */
+.page {
+  max-width: calc(var(--margin-col) + var(--gap) + var(--measure) + 3rem);
+  margin: 0 auto;
+  padding: 5rem 1.5rem 3rem;
+}
+
+.masthead {
+  padding-bottom: 2.75rem;
+  margin-bottom: 3.5rem;
+  border-bottom: 1px solid var(--rule);
+}
+
+h1 {
+  margin: 0 0 0.9rem;
+  font-family: var(--serif);
+  font-weight: 500;
+  font-size: clamp(2.6rem, 7vw, 4.6rem);
+  line-height: 1;
+  letter-spacing: -0.015em;
+  text-wrap: balance;
+}
+
+.role {
+  font-family: var(--sans);
+  font-size: 1.3rem;
+  color: var(--ink-soft);
+}
+
+.profile-links {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 0.35rem 1.4rem;
+  margin-top: 1.4rem;
+  font-family: var(--sans);
+  font-weight: 500;
+  font-size: 1.15rem;
+}
+
+.profile-links a {
+  text-decoration: none;
+}
+
+.profile-links a:hover {
+  text-decoration: underline;
+}
+
+/* The page you are on */
+.profile-links a[aria-current="page"] {
+  color: var(--ink);
+  text-decoration: underline;
+  text-decoration-color: var(--carmine);
+  text-decoration-thickness: 2px;
+  text-underline-offset: 0.3em;
+}
+
+.lang-toggle {
+  margin-left: auto;
+  font-family: var(--sans);
+  font-size: 1rem;
+  font-weight: 500;
+  color: var(--ink);
+  background: transparent;
+  border: 1px solid var(--rule);
+  border-radius: 999px;
+  padding: 0.15rem 0.85rem;
+  cursor: pointer;
+}
+
+.lang-toggle:hover {
+  border-color: var(--ink-soft);
+}
+
+/* Smaller header on Research, Teaching and Hobbies */
+.masthead--compact {
+  padding-bottom: 1.75rem;
+  margin-bottom: 3rem;
+}
+
+.site-name {
+  font-family: var(--serif);
+  font-weight: 500;
+  font-size: clamp(1.9rem, 4.5vw, 2.6rem);
+  line-height: 1.05;
+  letter-spacing: -0.01em;
+}
+
+.site-name a {
+  color: var(--ink);
+  text-decoration: none;
+}
+
+.masthead--compact .profile-links {
+  margin-top: 1rem;
+}
+
+section {
+  display: grid;
+  grid-template-columns: var(--margin-col) minmax(0, var(--measure));
+  column-gap: var(--gap);
+}
+
+section + section {
+  margin-top: 4rem;
+}
+
+h2 {
+  position: sticky;
+  top: 1.5rem;
+  align-self: start;
+  margin: 0;
+  font-family: var(--serif);
+  font-style: italic;
+  font-weight: 400;
+  font-size: 1.45rem;
+  line-height: 1.3;
+  color: var(--ink-soft);
+}
+
+/* Spacing between blocks. Uses gap so hidden translations take no space. */
+.section-body {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr);
+  row-gap: 1rem;
+  align-content: start;
+}
+
+h3 {
+  margin: 1.5rem 0 0;
+  font-family: var(--sans);
+  font-weight: 700;
+  font-size: 1.05rem;
+  letter-spacing: 0.01em;
+  color: var(--ink-soft);
+}
+
+.section-body > h3:first-child {
+  margin-top: 0.2rem;
+}
+
+/* ------------------------------------------------------------------
+   Papers
+   ------------------------------------------------------------------ */
+.paper + .paper {
+  margin-top: 1.25rem;
+}
+
+.paper-title {
+  margin: 0;
+  font-family: var(--serif);
+  font-weight: 500;
+  font-size: 1.4rem;
+  line-height: 1.25;
+}
+
+.paper-title a {
+  color: var(--ink);
+  text-decoration-color: var(--rule);
+}
+
+.paper-title a:hover {
+  color: var(--carmine);
+  text-decoration-color: currentColor;
+}
+
+.paper-meta,
+.paper-status {
+  font-family: var(--sans);
+  font-size: 1.05rem;
+  color: var(--ink-soft);
+}
+
+.paper-meta {
+  margin-top: 0.3rem;
+}
+
+.paper-status {
+  font-style: italic;
+}
+
+.paper-summary {
+  margin-top: 0.6rem;
+}
+
+/* Abstract toggle */
+.abstract {
+  margin-top: 0.6rem;
+}
+
+.abstract summary {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.45rem;
+  cursor: pointer;
+  list-style: none;
+  font-family: var(--sans);
+  font-weight: 500;
+  font-size: 1.05rem;
+  color: var(--carmine);
+}
+
+.abstract summary::-webkit-details-marker {
+  display: none;
+}
+
+.abstract summary::before {
+  content: "";
+  width: 0;
+  height: 0;
+  border-left: 0.42em solid currentColor;
+  border-top: 0.28em solid transparent;
+  border-bottom: 0.28em solid transparent;
+  transition: transform 160ms ease;
+}
+
+.abstract[open] summary::before {
+  transform: rotate(90deg);
+}
+
+.abstract p {
+  margin-top: 0.75rem;
+  padding-left: 1rem;
+  border-left: 2px solid var(--rule);
+  font-size: 1.15rem;
+}
+
+/* ------------------------------------------------------------------
+   Lists: experience, teaching
+   ------------------------------------------------------------------ */
+.entries {
+  list-style: none;
+  padding: 0;
+}
+
+.entries li + li {
+  margin-top: 1.1rem;
+}
+
+.entry-detail {
+  font-family: var(--sans);
+  font-size: 1.05rem;
+  color: var(--ink-soft);
+}
+
+/* ------------------------------------------------------------------
+   Contact and the "Lately" note
+   ------------------------------------------------------------------ */
+.contact-email {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: baseline;
+  gap: 0.4rem 1rem;
+}
+
+.copy-button {
+  font-family: var(--sans);
+  font-size: 0.95rem;
+  font-weight: 500;
+  color: var(--ink);
+  background: transparent;
+  border: 1px solid var(--rule);
+  border-radius: 999px;
+  padding: 0.15rem 0.8rem;
+  cursor: pointer;
+}
+
+.copy-button:hover {
+  border-color: var(--ink-soft);
+}
+
+.copy-status {
+  font-family: var(--sans);
+  font-size: 0.95rem;
+  color: var(--ink-soft);
+}
+
+.lately {
+  display: grid;
+  grid-template-columns: auto 1fr;
+  gap: 0.4rem 1.25rem;
+}
+
+.lately dt {
+  font-family: var(--sans);
+  font-size: 1.05rem;
+  color: var(--ink-soft);
+  padding-top: 0.12rem;
+}
+
+.lately dd {
+  margin: 0;
+}
+
+.site-footer {
+  margin-top: 5rem;
+  padding-top: 1.25rem;
+  border-top: 1px solid var(--rule);
+  font-family: var(--sans);
+  font-size: 0.95rem;
+  color: var(--ink-soft);
+}
+
+/* ------------------------------------------------------------------
+   Photo gallery (Hobbies page)
+   ------------------------------------------------------------------ */
+.gallery {
+  columns: 2 14rem;
+  column-gap: 1rem;
+}
+
+.gallery figure {
+  break-inside: avoid;
+  margin: 0 0 1.25rem;
+}
+
+.gallery a {
+  display: block;
+  cursor: zoom-in;
+}
+
+.gallery img {
+  display: block;
+  width: 100%;
+  height: auto;
+  border-radius: 3px;
+  background: var(--rule);
+}
+
+.gallery a:hover img {
+  filter: brightness(1.04);
+}
+
+.gallery figcaption {
+  margin-top: 0.4rem;
+  font-family: var(--sans);
+  font-size: 1rem;
+  color: var(--ink-soft);
+}
+
+/* Full-screen photo viewer */
+html:has(.lightbox[open]) {
+  overflow: hidden;
+}
+
+.lightbox {
+  width: 100vw;
+  height: 100vh;
+  height: 100dvh;
+  max-width: none;
+  max-height: none;
+  margin: 0;
+  padding: 0;
+  border: 0;
+  background: #0e1210;
+  color: #e3e8e2;
+}
+
+.lightbox[open] {
+  display: grid;
+  grid-template-rows: minmax(0, 1fr) auto;
+  justify-items: center;
+  align-items: center;
+}
+
+.lightbox::backdrop {
+  background: transparent;
+}
+
+.lightbox-image {
+  max-width: min(94vw, 1600px);
+  max-height: calc(100dvh - 7rem);
+  object-fit: contain;
+  margin-top: 3rem;
+}
+
+.lightbox-bar {
+  display: flex;
+  align-items: center;
+  gap: 1.25rem;
+  padding: 1rem 1rem 1.5rem;
+  font-family: var(--sans);
+}
+
+.lightbox-caption {
+  min-width: 10rem;
+  text-align: center;
+  font-size: 1.05rem;
+}
+
+.lightbox-caption .todo {
+  background: none;
+}
+
+.lightbox button {
+  font-family: var(--sans);
+  font-size: 1.4rem;
+  line-height: 1;
+  color: inherit;
+  background: transparent;
+  border: 1px solid rgb(227 232 226 / 0.35);
+  border-radius: 999px;
+  width: 2.6rem;
+  height: 2.6rem;
+  cursor: pointer;
+}
+
+.lightbox button:hover {
+  border-color: rgb(227 232 226 / 0.8);
+}
+
+.lightbox button:focus-visible {
+  outline-color: #e3e8e2;
+}
+
+.lightbox-close {
+  position: absolute;
+  top: 1rem;
+  right: 1rem;
+}
+
+/* ------------------------------------------------------------------
+   Phones and narrow windows: one column
+   ------------------------------------------------------------------ */
+@media (max-width: 760px) {
+  body {
+    font-size: 1.15rem;
+  }
+
+  .page {
+    padding: 3rem 1rem 2.5rem;
+  }
+
+  .masthead {
+    margin-bottom: 2.5rem;
+    padding-bottom: 2rem;
+  }
+
+  section {
+    grid-template-columns: minmax(0, 1fr);
+  }
+
+  section + section {
+    margin-top: 3rem;
+  }
+
+  h2 {
+    position: static;
+    margin-bottom: 1rem;
+    font-size: 1.6rem;
+  }
+
+  .paper-title {
+    font-size: 1.3rem;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
+
+  .abstract summary::before {
+    transition: none;
+  }
+}
+
+@media print {
+  .skip-link,
+  .copy-button,
+  .copy-status,
+  .lang-toggle,
+  .lightbox {
+    display: none;
+  }
+
+  .todo {
+    background: none;
+  }
+
+  h2 {
+    position: static;
+  }
+
+  .abstract:not([open]) > :not(summary) {
+    display: block;
+  }
+}
