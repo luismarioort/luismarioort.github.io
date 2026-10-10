@@ -4,7 +4,7 @@
 :root {
   color-scheme: light dark;
 
-  --paper: #f1f3ee;      /* PAGE BACKGROUND: change this to change the page color */
+  --paper: #e8f5f8;      /* PAGE BACKGROUND: change this to change the page color */
   --ink: #1c2621;        /* main text */
   --ink-soft: #55625b;   /* secondary text */
   --rule: #c9d1c9;       /* thin lines */
